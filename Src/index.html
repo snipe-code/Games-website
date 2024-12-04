@@ -1,0 +1,95 @@
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Vintage Game Arcade</title>
+      <style>
+          body {
+            display: flex;
+            justify-content: center;
+            background-image: url('../Photographic/Misc/main-background.jpg');
+            background-size: cover;
+            font-family: 'Courier New', Courier, monospace;
+            text-align: center;
+            padding: 20px;
+          }
+
+          #container {
+            width: 80vh;
+          }
+          
+          h1 {
+              color: #4a3728;
+              text-shadow: 2px 2px #d4c5b9;
+              font-size: 3em;
+          }
+          .gameContainer {
+              display: flex;
+              flex-wrap: wrap;
+              justify-content: center;
+              gap: 20px;
+              margin-top: 40px;
+          }
+          .gameButton {
+              height: 150px;
+              background-color: #d4c5b9;
+              border: 3px solid #4a3728;
+              border-radius: 10px;
+              cursor: pointer;
+              transition: transform 0.2s;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0 20px;
+              font-size: 1.5em;
+          }
+          .gameButton:hover {
+              transform: scale(1.02);
+              background-color: #e6d5c5;
+          }
+          .gameButton img {
+              height: 80px;
+              margin-right: 20px;
+          }
+      </style>
+  </head>
+  <body>
+    <div id="container">
+        <h1>Vintage Game Collection</h1>
+        <p>Step into the past and enjoy these classic games!</p>
+
+        <div class="gameContainer">
+            <button class="gameButton" style="width: 500px" onclick="window.location.href='/games/rockpaperscissors'">
+                <img src="/icons/rps-icon.png" alt="RPS">
+                Rock Paper Scissors
+            </button>
+        
+            <button class="gameButton" style="width: 300px" onclick="window.location.href='/games/guessthenumber'">
+                <img src="/icons/number-icon.png" alt="Guess">
+                Guess the Number
+            </button>
+        
+            <button class="gameButton" style="width: 400px" onclick="window.location.href='/games/hangman'">
+                <img src="/icons/hangman-icon.png" alt="Hangman">
+                Hangman
+            </button>
+        
+            <button class="gameButton" style="width: 450px" onclick="window.location.href='/games/wordscramble'">
+                <img src="/icons/word-icon.png" alt="Word">
+                Word Scramble
+            </button>
+        
+            <button class="gameButton" style="width: 250px" onclick="window.location.href='/games/typing'">
+                <img src="/icons/typing-icon.png" alt="Typing">
+                Speed Typing
+            </button>
+        
+            <button class="gameButton" style="width: 350px" onclick="window.location.href='/games/quiz'">
+                <img src="/icons/quiz-icon.png" alt="Quiz">
+                Quick Quiz
+            </button>
+        </div>
+    </div>
+  </body>
+  </html>

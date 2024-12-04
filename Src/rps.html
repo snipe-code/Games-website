@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>
+        Rock Paper Scissors
+    </h1>
+    <h3>Welcome! Start by clicking on your choice to start!</h3>
+    <div class="choiceBtn">
+        <button id="rockBtn">Rock</button>
+        <button id="paperBtn">Paper</button>
+        <button id="scissorsBtn">Scissors</button>
+    </div>
+
+    <div id="choiceDisplayDiv">
+        <span class="choiceDisplay">
+            <img src="../Photographic/RPS/user-choice.svg">
+            Your choice: 
+            <p id="playerLabel"></p>
+        </span>
+        <span class="choiceDisplay">
+            <img src="../Photographic/RPS/computer-choice.svg">
+            Computer choice: 
+            <p id="computerLabel"></p>
+        </span>
+    </div>
+    <p id="result">Start the game to see results!</p>
+    <div id="streakDisplayDiv">
+        <span class="streakDisplay">
+            <img src="../Photographic/RPS/streak-fire.svg">
+            <div>
+                Current streak: 
+                <p id="streakLabel">0</p>
+            </div>
+        </span>
+        <span class="streakDisplay">
+            <img src="../Photographic/RPS/streak-fire.svg">
+            <div>
+                Max streak:
+                <p id="maxStreakLabel">0</p>
+            </div>
+        </span>
+    </div>
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('../Photographic/Misc/main-background.jpg');
+            background-size: cover;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+              color: #4a3728;
+              text-shadow: 2px 2px #d4c5b9;
+              font-size: 3em;
+        }
+
+        #choiceDisplayDiv {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .choiceDisplay {
+            display: flex;
+            align-items: center;
+            vertical-align: middle;
+            font-size: 35px;
+            gap: 20px;
+        }
+
+        .choiceDisplay img {
+            width: 35px;
+        }
+    </style>
+    <script>
+        const rockBtn = document.getElementById('rockBtn');
+        const paperBtn = document.getElementById('paperBtn');
+        const scissorsBtn = document.getElementById('scissorsBtn')
+        const playerLabel = document.getElementById('playerLabel');
+        const computerLabel = document.getElementById('computerLabel');
+        const streakLabel = document.getElementById('streakLabel');
+        const maxStreakLabel = document.getElementById('maxStreakLabel');
+        const result = document.getElementById('result')
+        let playerChoice;
+        let streak = 0;
+        let maxStreak = 0;
+        let computerChoice;
+
+        rockBtn.addEventListener('click', () => {
+            playerChoice = 1;
+            computerChoice = Math.floor(Math.random() * 3 + 1);
+            checkResult();
+        });
+
+        paperBtn.addEventListener('click', () => {
+            playerChoice = 2;
+            computerChoice = Math.floor(Math.random() * 3 + 1);
+            checkResult();
+        });
+
+        scissorsBtn.addEventListener('click', () => {
+            playerChoice = 3;
+            computerChoice = Math.floor(Math.random() * 3 + 1);
+            checkResult();
+        });
+
+        // Converting playerChoice and computerChoice to words
+        if (playerChoice == 1) {playerChoice = 'Rock'}
+        else if (playerChoice == 2) {playerChoice = 'Paper'}
+        else if (playerChoice == 3) {playerChoice = 'Scissors'};
+
+        if (computerChoice == 1) {computerChoice = 'Rock'}
+        else if (computerChoice == 2) {computerChoice = 'Paper'}
+        else if (computerChoice == 3) {computerChoice = 'Scissors'};
+
+        function checkResult() {
+            if (playerChoice == computerChoice) {
+                result.textContent = 'It\'s a tie!';
+            } else if (
+                (playerChoice === 1 && computerChoice === 3) ||
+                (playerChoice === 2 && computerChoice === 1) ||
+                (playerChoice === 3 && computerChoice === 2)
+            ) {
+                result.textContent = 'You win!';
+                playerLabel.textContent = playerChoice;
+                computerLabel.textContent = computerChoice;
+                streak++;
+                maxStreak++;
+                streakLabel.textContent = streak;
+                maxStreakLabel.textContent = maxStreak;
+            } else {
+                result.textContent = 'Computer wins!';
+            }
+        }
+    </script>
+</body>
+</html>
