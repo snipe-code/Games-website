@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1>
+            Rock Paper Scissors
+        </h1>
+        <h3>Choose Rock, Paper, or Scissors!</h3>
+        <div class="choiceBtn">
+            <button id="rockBtn">Rock</button>
+            <button id="paperBtn">Paper</button>
+            <button id="scissorsBtn">Scissors</button>
+        </div>
+
+        <div id="choiceDisplayDiv">
+            <span class="choiceDisplay">
+                Your choice: 
+                <p id="playerLabel" class="choiceLabel"></p>
+            </span>
+            <span class="choiceDisplay">
+                Computer choice: 
+                <p id="computerLabel" class="choiceLabel"></p>
+            </span>
+        </div>
+        <p id="resultLabel">Start the game to see result!</p>
+        <div id="streakDisplayDiv">
+            <span class="streakDisplay" id="currentStreakDisplay">
+                <img src="../Photographic/RPS/streak-fire.svg">
+                <div>
+                    Current streak: 
+                    <p id="currentStreakLabel" class="streakLabel">0</p>
+                </div>
+            </span>
+            <span class="streakDisplay" id="maxStreakDisplay">
+                <img src="../Photographic/RPS/streak-fire.svg">
+                <div>
+                    Max streak:
+                    <p id="maxStreakLabel" class="streakLabel">0</p>
+                </div>
+            </span>
+        </div>
+    </div>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Press Start 2P', cursive;
+            text-align: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+            color: #2c3e50;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-size: 400% 400%;
+        }
+        
+        #container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 800px;
+            width: 100%;
+            box-sizing: border-box;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        h1 {
+            color: #ff4757;
+            text-shadow: 4px 4px 0px #ffa502;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            animation: floating 3s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            color: #2d3436;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .choiceBtn {
+            display: flex;
+            margin: 20px 0;
+            width: 50vh;
+            justify-content: space-between;
+            perspective: 1000px;
+        }
+
+        .choiceBtn button {
+            display: flex;
+            align-items: center;
+            padding: 15px 30px;
+            margin: 0 10px;
+            font-size: 0.8em;
+            font-family: 'Press Start 2P', cursive;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #6c5ce7, #a363d9);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            box-shadow: 0 6px 0 #4834d4;
+            animation: bounce 1s infinite;
+        }
+
+        #choiceDisplayDiv {
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
+            margin: 20px 0;
+            width: 50vh;
+            transform: rotateX(5deg);
+            border: 3px solid #6c5ce7;
+        }
+
+        .choiceDisplay {
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            background: linear-gradient(45deg, #f1f2f6, #dfe4ea);
+            transition: all 0.3s ease;
+        }
+
+        .choiceDisplay:hover {
+            transform: scale(1.02) translateX(5px);
+        }
+
+        .choiceLabel {
+            margin: 0 10px;
+            color: #e74c3c;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.1);
+        }
+
+        #resultLabel {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2ecc71;
+            margin: 20px 0;
+            padding: 15px 25px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.95);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 50vh;
+            border: 3px dashed #2ecc71;
+            transition: all 0.3s ease;
+        }
+
+        #resultLabel.win {
+            color: #2ecc71;
+            border-color: #2ecc71;
+            background: rgba(46, 204, 113, 0.1);
+        }
+
+        #resultLabel.lose {
+            color: #e74c3c;
+            border-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+        }
+
+        #resultLabel.tie {
+            color: #f1c40f;
+            border-color: #f1c40f;
+            background: rgba(241, 196, 15, 0.1);
+        }
+
+        #streakDisplayDiv {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            perspective: 1000px;
+        }
+
+        .streakDisplay {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #ffd32a, #ff7b00);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 0 #cc6100;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .streakDisplay:hover {
+            transform: translateY(-5px) rotateX(10deg);
+        }
+
+        .streakLabel {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 0;
+            color: white;
+            text-shadow: 2px 2px 0 rgba(0,0,0,0.3);
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) }
+            50% { transform: translateY(-10px) }
+            100% { transform: translateY(0px) }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) }
+            50% { transform: translateY(-5px) }
+        }
+
+        .maxStreakAnim {
+            animation: crazyShake 0.5s infinite, neonGlow 1s infinite;
+            box-shadow: 0 0 50px #ffd700;
+        }
+
+        @keyframes neonGlow {
+            0% { box-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff7b00, 0 0 20px #ff7b00 }
+            100% { box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff7b00, 0 0 40px #ff7b00 }
+        }
+    </style>
+    <script>
+        const rockBtn = document.getElementById('rockBtn');
+        const paperBtn = document.getElementById('paperBtn');
+        const scissorsBtn = document.getElementById('scissorsBtn')
+        const playerLabel = document.getElementById('playerLabel');
+        const computerLabel = document.getElementById('computerLabel');
+        const currentStreakLabel = document.getElementById('currentStreakLabel');
+        const maxStreakLabel = document.getElementById('maxStreakLabel');
+        const maxStreakDisplay = document.getElementById('maxStreakDisplay');
+        const resultLabel = document.getElementById('resultLabel')
+        let playerChoice;
+        let streak = 0;
+        let maxStreak = 0;
+        let computerChoice;
+
+        rockBtn.addEventListener('click', () => {
+            playerChoice = 1;
+            computerChoice = Math.floor(Math.random() * 3 + 1);
+            checkResult();
+        });
+
+        paperBtn.addEventListener('click', () => {
+            playerChoice = 2;
+            computerChoice = Math.floor(Math.random() * 3 + 1);
+            checkResult();
+        });
+
+        scissorsBtn.addEventListener('click', () => {
+            playerChoice = 3;
+            computerChoice = Math.floor(Math.random() * 3 + 1);
+            checkResult();
+        });
+
+        function checkResult() {
+            let playerText;
+            let computerText;
+
+            // Converting playerChoice and computerChoice to words
+            if (playerChoice === 1) {playerText = 'Rock'}
+            else if (playerChoice === 2) {playerText = 'Paper'}
+            else if (playerChoice === 3) {playerText = 'Scissors'}
+
+            if (computerChoice === 1) {computerText = 'Rock'}
+            else if (computerChoice === 2) {computerText = 'Paper'}
+            else if (computerChoice === 3) {computerText = 'Scissors'}
+
+            resultLabel.classList.remove('win', 'lose', 'tie');
+
+            if (playerChoice === computerChoice) {
+                resultLabel.textContent = 'It\'s a tie!';
+                resultLabel.classList.add('tie');
+            } else if (
+                (playerChoice === 1 && computerChoice === 3) ||
+                (playerChoice === 2 && computerChoice === 1) ||
+                (playerChoice === 3 && computerChoice === 2)
+            ) {
+                resultLabel.textContent = 'You win!';
+                resultLabel.classList.add('win');
+                streak++;
+                if (streak > maxStreak) {
+                    maxStreak = streak;
+                    maxStreakDisplay.classList.add('maxStreakAnim');
+                    setTimeout(() => {
+                        maxStreakDisplay.classList.remove('maxStreakAnim');
+                    }, 1500);
+                }
+            } else {
+                resultLabel.textContent = 'Computer wins!';
+                resultLabel.classList.add('lose');
+                streak = 0;
+            }
+            
+            playerLabel.textContent = playerText;
+            computerLabel.textContent = computerText;
+            currentStreakLabel.textContent = streak;
+            maxStreakLabel.textContent = maxStreak;
+        }
+    </script>
+</body>
+</html>
