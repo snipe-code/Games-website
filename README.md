@@ -23,6 +23,9 @@ Welcome to the **Number Guessing Game**! This is a fun, interactive game that le
 
 - **Animations and Cool Design**: Experience smooth animations and a stylish interface as you play!
 
+- **Saving in local database**
+  - Best attempt saves on your local storage.
+
 ## How to Play
 
 1. **Choose your Mode**:
